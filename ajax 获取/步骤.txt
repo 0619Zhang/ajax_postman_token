@@ -1,0 +1,46 @@
+一、接口登入
+      1、在postman中接入接口，选择指定获取方式（post或get）
+      2、在Body中填入用户名和密码
+      3、点击send获取token
+
+二、调用接口
+      1、在postman中点击＋新建一个postman接口页面
+      2、在地址栏中写入要请求的接口并选择接口的获取方式
+      3、在headers栏表格最后添加token
+	KEY:Authorization     VALUE：例：eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjVmMmZhOGRjLTVjNWMtNDk2Ni1hOWYxLTk4YWE5Y2RkNjM4ZCJ9.ZJLSCMuP7AqOwJwaViD2Vguqv4LpQOl17O03GvM3Xy2G7M3ztM7SAp2x9Ea1_P6kIkj9YG6qihE1iCRWBA2kaQ
+      4、点击send
+
+三、代码编写
+      例：post方式：
+	var settings = {
+                "url": "http://117.135.76.114:8091/login",			//这个是url地址，和postman中的url相同
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "dataType": "json",
+                "data": JSON.stringify({
+                    "username": "admin",
+                    "password": "admin123"
+                }),
+            };
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            });
+
+	get方式：
+	$.ajax({
+                "url": "http://117.135.76.114:8091/device/device/list?gatewayId=0&group=停车&datasource=gateway",
+                "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",		//固定格式
+                    "authorization":                                                 //写入token      注：authorization要小写                                               "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjVmMmZhOGRjLTVjNWMtNDk2Ni1hOWYxLTk4YWE5Y2RkNjM4ZCJ9.ZJLSCMuP7AqOwJwaViD2Vguqv4LpQOl17O03GvM3Xy2G7M3ztM7SAp2x9Ea1_P6kIkj9YG6qihE1iCRWBA2kaQ"
+                },
+                "dataType": "json",
+                "data": {
+                    "deviceId": "8",
+                    "deviceType": "device"
+                },
+            }).done(function (response) {
+                console.log(response);
+            });
